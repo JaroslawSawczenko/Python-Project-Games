@@ -1,1 +1,2 @@
- # Lista bibliotek potrzebnych do działania
+#python==3.13.3
+Django==5.2.3
