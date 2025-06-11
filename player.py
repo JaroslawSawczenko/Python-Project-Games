@@ -1,1 +1,0 @@
-# Gracz: saldo, zarządzanie pieniędzmi

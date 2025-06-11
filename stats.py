@@ -1,1 +1,0 @@
-# Statystyki wygranych i przegranych

@@ -1,1 +1,0 @@
-# Pomocnicze funkcje (np. walidacja)
