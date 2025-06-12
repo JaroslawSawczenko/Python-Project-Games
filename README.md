@@ -26,7 +26,7 @@ terminal_games/
 │   │
 │   ├── logic_strategy/              # Gry logiczne i strategiczne
 │   │   ├── __init__.py
-│   │   ├── tic_tac_toe.py          # Kółko i krzyżyk - klasyczna gra 3x3, pierwszy z trzema w rzędzie wygrywa
+│   │   ├── tic_tac_toe.py          # Kółko i krzyżyk - klasyczna gra 3x3, pierwszy z trzema w rzędzie wygrywa (PIOTR)
 │   │   ├── connect_four.py         # Cztery w rzędzie - upuszczanie żetonów, pierwszy z 4 w linii wygrywa
 │   │   ├── reversi.py              # Reversi/Othello - odwracanie pionków przeciwnika na planszy 8x8
 │   │   ├── nim.py                  # Nim - zabieranie przedmiotów z kupek, ostatni ruch przegrywa
