@@ -1,7 +1,3 @@
-
-
-
-
 # To Wzór jak to +- ma wyglądać
 
 terminal_games/
@@ -30,8 +26,8 @@ terminal_games/
 │   │   ├── connect_four.py         # Cztery w rzędzie - upuszczanie żetonów, pierwszy z 4 w linii wygrywa
 │   │   ├── reversi.py              # Reversi/Othello - odwracanie pionków przeciwnika na planszy 8x8
 │   │   ├── nim.py                  # Nim - zabieranie przedmiotów z kupek, ostatni ruch przegrywa
-│   │   ├── sudoku.py               # Sudoku - wypełnianie siatki 9x9 cyframi 1-9 bez powtórzeń
-│   │   ├── game_2048.py            # 2048 - łączenie liczb na siatce 4x4, cel: osiągnąć liczbę 2048
+│   │   ├── sudoku.py               # Sudoku - wypełnianie siatki 9x9 cyframi 1-9 bez powtórzeń  (Jarek)
+│   │   ├── game_2048.py            # 2048 - łączenie liczb na siatce 4x4, cel: osiągnąć liczbę 2048 (Jarek)
 │   │   └── lights_out.py           # Lights Out - przełączanie świateł, cel: wyłączyć wszystkie
 │   │
 │   ├── word_games/                 # Gry słowne
