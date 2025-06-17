@@ -8,5 +8,41 @@
         "id": 1,
         "name": "Test",
         "results": {}
+    },
+    {
+        "id": 2,
+        "name": "Test",
+        "results": {}
+    },
+    {
+        "id": 3,
+        "name": "Test",
+        "results": 100
+    },
+    {
+        "id": 4,
+        "name": "Test",
+        "results": {}
+    },
+    {
+        "id": 5,
+        "name": "Test",
+        "results": {
+            "sudoku": 100
+        }
+    },
+    {
+        "id": 6,
+        "name": "Test",
+        "results": {
+            "sudoku": 100
+        }
+    },
+    {
+        "id": 7,
+        "name": "Test",
+        "results": {
+            "sudoku": 100
+        }
     }
 ]
