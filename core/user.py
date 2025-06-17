@@ -9,14 +9,14 @@ class User:
         }
 
     def create_user(self, name):
-        with open("user_data.json", "r") as json_file:
+        with open("../data/user_data.json", "r") as json_file:
             data = json.load(json_file)
 
         self.user_info["id"] = len(data)
         self.user_info["name"] = name
         data.append(self.user_info)
 
-        with open("user_data.json", "w") as json_file:
+        with open("../data/user_data.json", "w") as json_file:
             json.dump(data, json_file, indent=4)
 
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     # with open("user_data.json", "w") as json_file:
     #     json.dump(data_read, json_file, indent=4)
     #
-    with open("user_data.json", "r") as json_file:
+    with open("../data/user_data.json", "r") as json_file:
         data_read = json.load(json_file)
 
     print(data_read)
