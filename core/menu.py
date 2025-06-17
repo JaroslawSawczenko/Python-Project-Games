@@ -1,7 +1,7 @@
 def check(num):
     try:
         num = int(num)
-        if num not in range(0, 13):
+        if num not in range(0, 11):
             raise Exception("Taki numer nie istnieje w menu :(")
     except ValueError:
         print("To nie jest liczba.")
