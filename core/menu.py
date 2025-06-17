@@ -1,3 +1,6 @@
+from .user import User
+# from ..games.logic_strategy import tic_tac_toe, game_2048
+
 def check(num):
     try:
         num = int(num)
@@ -15,6 +18,10 @@ def check(num):
 def run():
     print("Welcome! Tutaj możesz zagrać w gry różnych gatunków."
           "\nProszę, wpisz numer na klawiaturze, aby wybrać to, co Cię interesuje.")
+
+    user_name = input("Proszę podać imię: ")
+    user = User(user_name)
+    user.create_user()
 
     while True:
         print("""

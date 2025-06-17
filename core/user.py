@@ -2,30 +2,30 @@ import json
 
 # Funkcja czytania danych z pliku.
 def read_data_user_json():
-    with open("../data/user_data.json", "r") as json_file:
+    with open("./data/user_data.json", "r") as json_file:
         data = json.load(json_file)
     return data
 
 # Funkcja zapisu danych do pliku.
 def write_data_user_json(data):
-    with open("../data/user_data.json", "w") as json_file:
+    with open("./data/user_data.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
 
 class User:
-    def __init__(self):
+    def __init__(self, name):
         self.user_info = {
             "id": None,
-            "name": None,
+            "name": name,
             "results": {},
         }
 
     # Stworzenie użytkownika. Potrzebuje tylko imię.
 
-    def create_user(self, name):
+    def create_user(self):
         data = read_data_user_json() # czytamy plik
 
         self.user_info["id"] = len(data)
-        self.user_info["name"] = name
+        # self.user_info["name"] = name
         data.append(self.user_info)
 
         write_data_user_json(data) # zapis pliku
@@ -50,15 +50,19 @@ class User:
         return user_info + game_info
 
 
-if __name__ == "__main__":
-
-    user1 = User()
-    user1.create_user("Test")
-
-    user1.add_results("sudoku", 100)
-
-    print(user1)
-    print(user1.user_info["id"])
+# if __name__ == "__main__":
+#
+#     user1 = User()
+#     user1.create_user("Test")
+#
+#     user1.add_results("sudoku", 100)
+#     user1.add_results("2048", 512)
+#
+#     print(user1)
+#     print(user1.user_info["id"])
+#
+#     data_read = read_data_user_json() # czytamy plik
+#     print(data_read)
 
 
     # data = {
@@ -75,6 +79,3 @@ if __name__ == "__main__":
     # with open("user_data.json", "w") as json_file:
     #     json.dump(data_read, json_file, indent=4)
     #
-    data_read = read_data_user_json() # czytamy plik
-
-    print(data_read)
