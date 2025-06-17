@@ -22,7 +22,7 @@ def run():
         
         Rodzaje gier
         1. Tic-tac-toe
-        2. 
+        2. 2048
         3. 
         4. 
         5. 
@@ -34,34 +34,34 @@ def run():
         
         0. Zakończyć
         """)
-        user_choose = input("Wpisz numer z menu: ")
-        user_choose = check(user_choose)
+        user_choice = input("Wpisz numer z menu: ")
+        user_choice = check(user_choice)
 
-        if user_choose == 1:
+        if user_choice == 1:
             pass
-        if user_choose == 2:
+        if user_choice == 2:
             pass
-        if user_choose == 3:
+        if user_choice == 3:
             pass
-        if user_choose == 4:
+        if user_choice == 4:
             pass
-        if user_choose == 5:
+        if user_choice == 5:
             pass
-        if user_choose == 6:
+        if user_choice == 6:
             pass
-        if user_choose == 7:
+        if user_choice == 7:
             pass
-        if user_choose == 8:
+        if user_choice == 8:
             pass
-        if user_choose == 9:
+        if user_choice == 9:
             pass
-        if user_choose == 10:
+        if user_choice == 10:
             pass
-        if user_choose == 11:
+        if user_choice == 11:
             pass
-        if user_choose == 12:
+        if user_choice == 12:
             pass
-        if user_choose == 0:
+        if user_choice == 0:
             break
 
     print("Dzięki, pa!")
