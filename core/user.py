@@ -1,10 +1,12 @@
 import json
 
+# Funkcja czytania danych z pliku.
 def read_data_user_json():
     with open("../data/user_data.json", "r") as json_file:
         data = json.load(json_file)
     return data
 
+# Funkcja zapisu danych do pliku.
 def write_data_user_json(data):
     with open("../data/user_data.json", "w") as json_file:
         json.dump(data, json_file, indent=4)
@@ -38,6 +40,15 @@ class User:
 
         write_data_user_json(data) # zapis pliku
 
+    # Wywiad wyników dla użytkownika.
+
+    def __str__(self):
+        user_info = f"Statystyka dla {self.user_info['name']:}\n"
+        game_info = ""
+        for game_name, result in self.user_info["results"].items():
+            game_info += f"-\t{game_name}:\t{result}p."
+        return user_info + game_info
+
 
 if __name__ == "__main__":
 
@@ -45,6 +56,9 @@ if __name__ == "__main__":
     user1.create_user("Test")
 
     user1.add_results("sudoku", 100)
+
+    print(user1)
+    print(user1.user_info["id"])
 
 
     # data = {
