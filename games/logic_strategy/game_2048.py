@@ -1,6 +1,5 @@
 import random
 import os
-import sys
 
 class Game2048:
     def __init__(self):
@@ -67,9 +66,9 @@ class Game2048:
         print()
         
         if self.won and not self.game_over:
-            print("🎉 GRATULACJE! Osiągnąłeś 2048! Możesz grać dalej lub wcisnąć 'q' aby zakończyć.")
+            print(" GRATULACJE! Osiągnąłeś 2048! Możesz grać dalej lub wcisnąć 'q' aby zakończyć.")
         elif self.game_over:
-            print("💀 KONIEC GRY! Brak możliwych ruchów.")
+            print(" KONIEC GRY! Brak możliwych ruchów.")
         
         print("Sterowanie: W/A/S/D (góra/lewo/dół/prawo), Q - wyjście, R - restart")
     
@@ -174,7 +173,7 @@ class Game2048:
                 move = input("Twój ruch: ").lower().strip()
                 
                 if move == 'q':
-                    print("Dzięki za grę! 👋")
+                    print("Dzięki za grę! ")
                     break
                 elif move == 'r':
                     self.reset_game()
@@ -206,15 +205,15 @@ class Game2048:
                 self.display_board()
                 
             except KeyboardInterrupt:
-                print("\nGra przerwana. Do zobaczenia! 👋")
+                print("\nGra przerwana. Do zobaczenia! ")
                 break
             except EOFError:
-                print("\nGra zakończona. Do zobaczenia! 👋")
+                print("\nGra zakończona. Do zobaczenia! ")
                 break
 
 def main():
     """Funkcja główna - uruchamia grę"""
-    print("Witaj w grze 2048! 🎮")
+    print("Witaj w grze 2048! ")
     print("Celem jest osiągnięcie kafelka o wartości 2048.")
     print("Łącz identyczne liczby przesuwając je w tym samym kierunku!")
     print()

@@ -1,74 +1,124 @@
-from .user import User
-# from ..games.logic_strategy import tic_tac_toe, game_2048
+import os
+#from .user import User, create_or_load_user
+#from ..games.logic_strategy import tic_tac_toe, game_2048
 
-def check(num):
+def clear_screen():
+    """Czyści ekran konsoli"""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def check_menu_choice(user_input, max_option):
+    """Sprawdza poprawność wyboru z menu"""
     try:
-        num = int(num)
-        if num not in range(0, 11):
-            raise Exception("Taki numer nie istnieje w menu :(")
+        num = int(user_input)
+        if 0 <= num <= max_option:
+            return num
+        else:
+            print(f"Wybierz numer od 0 do {max_option}")
+            return None
     except ValueError:
-        print("To nie jest liczba.")
+        print("To nie jest liczba. Spróbuj ponownie.")
         return None
-    except Exception as e:
-        print(e)
-        return None
-    else:
-        return num
+
+def display_main_menu():  
+    """Wyświetla główne menu gry"""
+    print("""
+    ╔══════════════════════════════════════╗
+    ║            TERMINAL GAMES            ║
+    ║              GŁÓWNE MENU             ║
+    ╚══════════════════════════════════════╝
+    
+     Dostępne gry:
+    1.  Tic-tac-toe (Kółko i krzyżyk)
+    2.  2048 (Gra liczbowa)
+    3.  (Wkrótce)
+    4.  (Wkrótce)
+    5.  Więcej gier (Wkrótce)
+    
+     Opcje dodatkowe:
+    6.  Moje statystyki
+    7.  Ranking graczy       
+    8.  Lista użytkowników
+    9.  Pomoc
+    
+    0.  Wyjście
+    """)
+
+
+
+
+def display_help():
+    """Wyświetla pomoc dla użytkownika"""
+    print("""
+    ╔══════════════════════════════════════╗
+    ║               POMOC                  ║
+    ╚══════════════════════════════════════╝
+    
+     Jak grać:
+    • Wybierz grę z menu głównego
+    • Postępuj zgodnie z instrukcjami w grze
+    • Twoje wyniki są automatycznie zapisywane
+
+     System punktów:
+    • Każda gra ma swój system punktacji
+    • Zapisywane są tylko najlepsze wyniki
+    • Możesz sprawdzić swoje statystyki w menu
+    
+     Nawigacja:
+    • Używaj numerów do wyboru opcji
+    • Wpisz '0' aby wrócić do menu głównego
+    • Wpisz 'q' w grach aby je opuścić
+    
+     Wskazówki:
+    • Regularnie sprawdzaj ranking
+    • Próbuj pobić swoje rekordy
+    • Każda gra ma swoje unikalne zasady
+    """)
 
 def run():
-    print("Welcome! Tutaj możesz zagrać w gry różnych gatunków."
-          "\nProszę, wpisz numer na klawiaturze, aby wybrać to, co Cię interesuje.")
-
-    user_name = input("Proszę podać imię: ")
-    user = User(user_name)
-    user.create_user()
-
+    """Główna funkcja menu"""
+    clear_screen()
+    
+    print(" Witaj w Terminal Games! ")
+    print("Tutaj możesz zagrać w różne gry i rywalizować z innymi!")
+    
+    # Pobierz dane użytkownika
     while True:
-        print("""
-        --- Menu ---
-        
-        Rodzaje gier
-        1. Tic-tac-toe
-        2. 2048
-        3. 
-        4. 
-        5. 
-        6. 
-        7. 
-        8. 
-        9. 
-        10. 
-        
-        0. Zakończyć
-        """)
-        user_choice = input("Wpisz numer z menu: ")
-        user_choice = check(user_choice)
-
-        if user_choice == 1:
-            pass
-        if user_choice == 2:
-            pass
-        if user_choice == 3:
-            pass
-        if user_choice == 4:
-            pass
-        if user_choice == 5:
-            pass
-        if user_choice == 6:
-            pass
-        if user_choice == 7:
-            pass
-        if user_choice == 8:
-            pass
-        if user_choice == 9:
-            pass
-        if user_choice == 10:
-            pass
-        if user_choice == 11:
-            pass
-        if user_choice == 12:
-            pass
-        if user_choice == 0:
+        user_name = input("\n Proszę podać swoje imię: ").strip()
+        if user_name:
             break
+        print("Imię nie może być puste!")
+    
+    # Utwórz lub załaduj użytkownika
+    user = create_or_load_user(user_name)
+    
+    # Główna pętla menu
+    while True:
+        clear_screen()
+        print(f" Cześć, {user.user_info['name']}!")
+        display_main_menu()
+        
+        user_choice = input(" Wybierz opcję: ").strip()
+        choice = check_menu_choice(user_choice, 9)
+        
+        if choice is None:
+            input("Naciśnij Enter aby kontynuować...")
+            continue
+        
+        if choice == 1:
+            pass
+        elif choice == 2:
+            pass
+        elif choice == 3:
+            print("  Wkrótce dostępne!")
+        elif choice == 4:
+            print(" - Wkrótce dostępne!")
+        elif choice == 5:
+            print(" - Wkrótce dostępne!")
+        elif choice == 9:
+            display_help()
+        
+        if choice != 0:
+            input("\nNaciśnij Enter aby kontynuować...")
 
-    print("Dzięki, pa!")
+if __name__ == "__main__":
+    run()

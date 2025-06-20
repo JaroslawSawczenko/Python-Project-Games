@@ -30,12 +30,6 @@ terminal_games/
 │   │   ├── game_2048.py            # done
 │   │   └── lights_out.py           # Lights Out - przełączanie świateł, cel: wyłączyć wszystkie
 │   │
-│   ├── word_games/                 # Gry słowne
-│   │   ├── __init__.py
-│   │   ├── hangman.py              # Wisielec - zgadywanie słowa po literach, za błędy rysowany wisielec
-│   │   ├── wordle.py               # Wordle - zgadywanie 5-literowego słowa, wskazówki kolorami
-│   │   ├── anagrams.py             # Anagramy - tworzenie słów z podanych liter w określonym czasie
-│   │   └── word_chain.py           # Gra w słowa - wymyślanie słów na ostatnią literę poprzedniego
 │   │
 │   ├── card_games/                 # Gry karciane
 │   │   ├── __init__.py
@@ -69,16 +63,8 @@ terminal_games/
 │   │
 │   ├── rpg_text/                   # Gry tekstowe RPG
 │   │   ├── __init__.py
-│   │   ├── text_adventure.py       # Przygoda tekstowa - eksploracja świata przez opisy i wybory
 │   │   ├── dungeon_crawler.py      # Dungeon Crawler - wędrówka po lochach, walki, skarby
-│   │   └── quiz_rpg.py             # Quiz RPG - pytania zamiast walk, rozwój postaci
 │   │
-│   ├── simulation/                 # Gry symulacyjne
-│   │   ├── __init__.py
-│   │   ├── game_of_life.py         # Życie Conway'a - automat komórkowy, ewolucja generacji
-│   │   ├── city_sim.py             # Symulator miasta - budowanie, zarządzanie budżetem i populacją
-│   │   ├── tamagotchi.py           # Tamagotchi - wirtualne zwierzątko, karmienie, zabawa, sen
-│   │   └── farm_sim.py             # Symulator farmy - sadzenie, zbieranie, sprzedaż plonów
 │   │
 │   ├── multiplayer/                # Gry wieloosobowe
 │   │   ├── __init__.py
@@ -105,26 +91,7 @@ terminal_games/
 │       ├── sokoban.py              # Sokoban tekstowy - pchanie skrzyń na designated miejsca
 │       ├── logic_puzzles.py        # Łamigłówki logiczne - Einstein's riddle, dedukcja logiczna
 │       └── number_crossword.py     # Krzyżówka liczbowa - Kakuro, wypełnianie sum liczbami
-│
-├── data/                           # Dane gier
-│   ├── __init__.py
-│   ├── words/                      # Słowniki i słowa
-│   │   ├── polish_words.txt        # Polskie słowa
-│   │   ├── english_words.txt       # Angielskie słowa
-│   │   ├── hangman_words.txt       # Słowa do wisielca
-│   │   └── wordle_words.txt        # Słowa do Wordle
-│   │
-│   ├── questions/                  # Pytania do quizów
-│   │   ├── geography.json          # Geografia
-│   │   ├── history.json            # Historia
-│   │   ├── science.json            # Nauka
-│   │   └── general.json            # Wiedza ogólna
-│   │
-│   ├── levels/                     # Poziomy gier
-│   │   ├── sudoku_puzzles.json     # Puzzle Sudoku
-│   │   ├── sokoban_levels.txt      # Poziomy Sokoban
-│   │   └── adventure_maps.json     # Mapy przygód
-│   │
+
 │   └── scores/                     # Wyniki graczy
 │       ├── high_scores.json        # Najlepsze wyniki
 │       └── player_stats.json       # Statystyki graczy
