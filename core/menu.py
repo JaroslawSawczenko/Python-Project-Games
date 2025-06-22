@@ -2,7 +2,7 @@ import os
 #from .user import User, create_or_load_user
 #from ..games.logic_strategy import tic_tac_toe, game_2048
 
-def clear_screen():
+def clear_screen(): git commit -m "poprawa funkcji obsluga błędów"
     """Czyści ekran konsoli"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -18,6 +18,10 @@ def check_menu_choice(user_input, max_option):
     except ValueError:
         print("To nie jest liczba. Spróbuj ponownie.")
         return None
+    except Exception as e:
+        print(f"Wystąpił nieoczekiwany błąd: {e}")
+       return None
+
 
 def display_main_menu():  
     """Wyświetla główne menu gry"""

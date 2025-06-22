@@ -22,8 +22,12 @@ def read_data_user_json():
     except json.JSONDecodeError:
         # Uszkodzony JSON — informujemy i zwracamy pustą listę
         print("Plik danych użytkowników jest uszkodzony. Tworzę nowy.")
+        return []   
+    except Exception as e:
+        print(f"Wystąpił błąd podczas odczytu pliku: {e}")
         return []
 
+    
 def write_data_user_json(data):
     """
     Zapisuje dane użytkowników do pliku JSON.
@@ -70,13 +74,28 @@ class User:
 
 
 
-    def add_results(self, game_name, score):
+def add_results(self, game_name, score):
+    """Dodaje wynik gry dla użytkownika, zapisuje tylko jeśli to nowy rekord"""
+    previous_score = self.user_info["results"].get(game_name)
+
+    # Sprawdzenie czy to pierwszy wynik lub lepszy niż dotychczasowy
+    if previous_score is None or score > previous_score:
         self.user_info["results"][game_name] = score
-        data = read_data_user_json() # czytamy plik
 
-        data[self.user_info["id"]]["results"] = self.user_info["results"]
+        # Wczytaj aktualną bazę użytkowników
+        data = read_data_user_json()
 
-        write_data_user_json(data) # zapis pliku
+        # Walidacja ID i aktualizacja rekordu
+        user_id = self.user_info.get("id")
+        if isinstance(user_id, int) and 0 <= user_id < len(data):
+            data[user_id]["results"] = self.user_info["results"]
+            write_data_user_json(data)
+            print(f"Nowy rekord w grze '{game_name}'! Wynik: {score}")
+        else:
+            print("Błąd: nieprawidłowy identyfikator użytkownika.")
+    else:
+        print(f"Nie pobiłeś rekordu. Twój najlepszy wynik w '{game_name}' to {previous_score}.")
+
 
     # Wywiad wyników dla użytkownika.
 
