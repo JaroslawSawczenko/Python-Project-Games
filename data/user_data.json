@@ -2,97 +2,17 @@
     {
         "id": 0,
         "name": "Test",
-        "results": {}
+        "results": {
+            "sudoku": 100,
+            "2048": 512
+        }
     },
     {
         "id": 1,
-        "name": "Test",
-        "results": {}
-    },
-    {
-        "id": 2,
-        "name": "Test",
-        "results": {}
-    },
-    {
-        "id": 3,
-        "name": "Test",
-        "results": 100
-    },
-    {
-        "id": 4,
-        "name": "Test",
-        "results": {}
-    },
-    {
-        "id": 5,
-        "name": "Test",
+        "name": "Test1",
         "results": {
-            "sudoku": 100
+            "sudoku": 100,
+            "2048": 512
         }
-    },
-    {
-        "id": 6,
-        "name": "Test",
-        "results": {
-            "sudoku": 100
-        }
-    },
-    {
-        "id": 7,
-        "name": "Test",
-        "results": {
-            "sudoku": 100
-        }
-    },
-    {
-        "id": 8,
-        "name": "Test",
-        "results": {
-            "sudoku": 100
-        }
-    },
-    {
-        "id": 9,
-        "name": "Test",
-        "results": {
-            "sudoku": 100
-        }
-    },
-    {
-        "id": 10,
-        "name": "Test",
-        "results": {
-            "sudoku": 100
-        }
-    },
-    {
-        "id": 11,
-        "name": "Test",
-        "results": {
-            "sudoku": 100
-        }
-    },
-    {
-        "id": 12,
-        "name": "Test",
-        "results": {
-            "sudoku": 100
-        }
-    },
-    {
-        "id": 13,
-        "name": "321",
-        "results": {}
-    },
-    {
-        "id": 14,
-        "name": "456",
-        "results": {}
-    },
-    {
-        "id": 15,
-        "name": "test123",
-        "results": {}
     }
 ]

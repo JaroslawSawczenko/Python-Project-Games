@@ -1,8 +1,8 @@
 import os
-#from .user import User, create_or_load_user
-#from ..games.logic_strategy import tic_tac_toe, game_2048
+from .user import User
+from ..games.logic_strategy import tic_tac_toe, game_2048
 
-def clear_screen(): git commit -m "poprawa funkcji obsluga błędów"
+def clear_screen():
     """Czyści ekran konsoli"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -20,7 +20,7 @@ def check_menu_choice(user_input, max_option):
         return None
     except Exception as e:
         print(f"Wystąpił nieoczekiwany błąd: {e}")
-       return None
+        return None
 
 
 def display_main_menu():  
@@ -40,13 +40,12 @@ def display_main_menu():
     
      Opcje dodatkowe:
     6.  Moje statystyki
-    7.  Ranking graczy       
+    7.  Ranking graczy
     8.  Lista użytkowników
     9.  Pomoc
     
     0.  Wyjście
     """)
-
 
 
 
@@ -93,7 +92,8 @@ def run():
         print("Imię nie może być puste!")
     
     # Utwórz lub załaduj użytkownika
-    user = create_or_load_user(user_name)
+    user = User()
+    user = user.create_user(user_name)
     
     # Główna pętla menu
     while True:
@@ -124,5 +124,5 @@ def run():
         if choice != 0:
             input("\nNaciśnij Enter aby kontynuować...")
 
-if __name__ == "__main__":
-    run()
+# if __name__ == "__main__":
+#     run()
