@@ -26,7 +26,7 @@ terminal_games/
 │   │   ├── connect_four.py         # Cztery w rzędzie - upuszczanie żetonów, pierwszy z 4 w linii wygrywa
 │   │   ├── reversi.py              # Reversi/Othello - odwracanie pionków przeciwnika na planszy 8x8
 │   │   ├── nim.py                  # Nim - zabieranie przedmiotów z kupek, ostatni ruch przegrywa
-│   │   ├── sudoku.py               # Sudoku - wypełnianie siatki 9x9 cyframi 1-9 bez powtórzeń  (Jarek)
+│   │   ├── sudoku.py               # Sudoku - wypełnianie siatki 9x9 cyframi 1-9 bez powtórzeń  
 │   │   ├── game_2048.py            # done
 │   │   └── lights_out.py           # Lights Out - przełączanie świateł, cel: wyłączyć wszystkie
 │   │
