@@ -48,6 +48,51 @@ def display_main_menu():
     """)
 
 
+def display_user_stats(user):
+    """Wyświetla statystyki użytkownika"""
+    print(f"""
+    ╔══════════════════════════════════════╗
+    ║           TWOJE STATYSTYKI           ║
+    ╚══════════════════════════════════════╝
+    
+    Gracz: {user.user_info['name']}
+    ID: {user.user_info['id']}
+    """)
+    
+    if user.user_info['results']:
+        print("    Twoje najlepsze wyniki:")
+        for game_name, score in user.user_info['results'].items():
+            print(f"    • {game_name}: {score} pkt")
+    else:
+        print("    Nie masz jeszcze żadnych wyników.")
+        print("    Zagraj w jakąś grę, aby zapisać swoje wyniki!")
+
+
+def display_all_users():
+    """Wyświetla listę wszystkich użytkowników"""
+    from .user import read_data_user_json
+    
+    data = read_data_user_json()
+    
+    print("""
+    ╔══════════════════════════════════════╗
+    ║         LISTA UŻYTKOWNIKÓW           ║
+    ╚══════════════════════════════════════╝
+    """)
+    
+    if not data:
+        print("    Brak zarejestrowanych użytkowników.")
+        return
+    
+    for user in data:
+        print(f"    ID: {user['id']} | Imię: {user['name']}")
+        if user['results']:
+            print(f"      Gry zagrane: {len(user['results'])}")
+        else:
+            print("      Brak wyników")
+        print()
+
+
 def display_help():
     """Wyświetla pomoc dla użytkownika"""
     print("""
@@ -88,7 +133,7 @@ def run():
         user_name = input("\n Proszę podać swoje imię: ").strip()
         if user_name:
             break
-        print("Imię nie może być puste!")
+        print(" Imię nie może być puste!")
     
     # Utwórz lub załaduj użytkownika
     user = create_or_load_user(user_name)
@@ -103,24 +148,50 @@ def run():
         choice = check_menu_choice(user_choice, 9)
         
         if choice is None:
-            input("Naciśnij Enter aby kontynuować...")
+            input("⏎ Naciśnij Enter aby kontynuować...")
             continue
         
         if choice == 1:
-            pass
+            print(" Uruchamianie Tic-Tac-Toe...")
+            try:
+                # Uruchom grę i zapisz wynik jeśli został zwrócony
+                result = tic_tac_toe.tic_tac_toe()
+                if result:
+                    user.add_results("Tic-Tac-Toe", result)
+            except Exception as e:
+                print(f" Błąd podczas uruchamiania gry: {e}")
+                
         elif choice == 2:
-            pass
+            print(" Uruchamianie 2048...")
+            try:
+                game = game_2048.Game2048()
+                game.play()
+                # Zapisz wynik po zakończeniu gry
+                if game.score > 0:
+                    user.add_results("2048", game.score)
+            except Exception as e:
+                print(f" Błąd podczas uruchamiania gry: {e}")
+                
         elif choice == 3:
-            print("  Wkrótce dostępne!")
+            print(" Wkrótce dostępne!")
         elif choice == 4:
-            print(" - Wkrótce dostępne!")
+            print(" Wkrótce dostępne!")
         elif choice == 5:
-            print(" - Wkrótce dostępne!")
+            print(" Wkrótce dostępne!")
+        elif choice == 6:
+            display_user_stats(user)
+        elif choice == 7:
+           print(" Ranking graczy w budowie!")
+        elif choice == 8:
+            display_all_users()
         elif choice == 9:
             display_help()
+        elif choice == 0:
+            print(" Dzięki za grę! Do zobaczenia!")
+            break
         
         if choice != 0:
-            input("\nNaciśnij Enter aby kontynuować...")
+            input("\n Naciśnij Enter aby kontynuować...")
 
 if __name__ == "__main__":
     run()
