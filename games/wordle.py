@@ -28,90 +28,89 @@ def check_menu_choice(user_input, max_option):
 
 
 class Wordle:
-    def __init__(self, result = 0):
+    def __init__(self, points = 0):
         self.word = random.choice(WORDS).upper()
-        self.result = result
+        self.points = points
     
     def change_word(self):
-        # WORDS.sort(key=lambda x: len(x))
-        length = input("Words from 5 to 10: ").strip()
+        print("🎲 Wybierz długość słowa od 5 do 10:")
+        length_str = input("👉 Długość słowa: ").strip()
         try:
-            length = int(length)
-        except ValueError:
-            print("To nie jest liczba. Spróbuj ponownie.")
-            length = None
-        if length:
+            length = int(length_str)
             if length not in range(5, 11):
-                print("Only from 5 to 10.")
-                length = None
-        if length:
-            filtered_words = [word for word in WORDS if len(word) == length]
-            self.word = random.choice(filtered_words)
+                print("⚠️ Tylko liczby od 5 do 10, spróbuj jeszcze raz!")
+                return
+            filtered = [w for w in WORDS if len(w) == length]
+            if not filtered:
+                print("⚠️ Brak słów o takiej długości!")
+                return
+            self.word = random.choice(filtered).upper()
+            print(f"✅ Super! Wybrałem słowo o długości {length}.")
+        except ValueError:
+            print("⚠️ To nie jest liczba! Spróbuj ponownie.")
+
 
     def start(self):
-        points = 0
         attempts = 0
-        self.word = self.word.upper()
         length = len(self.word)
-        word = list(self.word)
-        guessed = False
-        while not guessed:
-            print("_ "*length)
-            user = input("Słowo: ").strip().upper()
-            user_word = list(user)
-            attempts += 1
+        word_letters = list(self.word)
+        print(f"🔎 Zgadnij słowo składające się z {length} liter! (Wpisz 'quit' aby wyjść)")
 
-            if user.lower() == "quit":
+        while True:
+            print("_ " * length)
+            guess = input("👉 Twoje słowo: ").strip().upper()
+
+            if guess.lower() == "quit":
+                print("🛑 Uciekasz? Do zobaczenia przy następnej rozgrywce!")
                 break
-            if len(user_word) != len(word):
-                print("Podaj poprawną długość słowa!")
+
+            if not guess.isalpha():
+                print("⚠️ Proszę, wpisz tylko litery! Spróbuj jeszcze raz.")
                 continue
-            if user == self.word.upper():
-                print("Congrats! You won in {} attempts!".format(attempts))
-                guessed = True
 
-                if attempts < 5:
-                    points = 10
-                elif attempts < 10:
-                    points = 5
+            if len(guess) != length:
+                print(f"⚠️ Słowo musi mieć dokładnie {length} liter, spróbuj jeszcze raz.")
+                continue
+
+            attempts += 1
+            guess_letters = list(guess)
+
+            if guess == self.word:
+                print(f"🎉 Brawo! Odgadłeś słowo w {attempts} próbach!")
+                if attempts <= 5:
+                    self.points += 10
+                    print("🔥 Mistrzowska robota! +10 punktów!")
+                elif attempts <= 10:
+                    self.points += 5
+                    print("👍 Dobra robota! +5 punktów!")
                 else:
-                    points = 1
+                    self.points += 1
+                    print("🙂 Udało się! +1 punkt!")
+                self.word = random.choice(WORDS).upper()
+                return self.points
 
-                self.word = random.choice(WORDS)
-                return points
-            else:
-                right_letters = {}
-                right_place = {}
+            # Sprawdzanie liter na właściwych miejscach i obecności liter w słowie
+            right_place = {i: letter for i, letter in enumerate(word_letters) if letter == guess_letters[i]}
+            c_word = Counter(word_letters)
+            c_guess = Counter(guess_letters)
+            right_letters = {letter: min(c_word.get(letter, 0), c_guess.get(letter, 0)) for letter in c_guess}
 
-                for i in range(len(word)):
-                    if word[i].upper() == user_word[i].upper():
-                        right_place[i] = word[i].upper()
-                
-                cword = Counter(word)
-                for key, val in Counter(user_word).items():
-                    if key.upper() in cword.keys():
-                        right_letters[key.upper()] = min(cword[key], val)
-                
-                print("Right place:", end=" ")
-                for j in range(len(word)):
-                    if j in right_place.keys():
-                        print(right_place[j], end=" ")
-                    else:
-                        print("_", end=" ")
-                print()
-                print("Right letters:", end=" ")
-                for let, count in right_letters.items():
-                    print(f"{let} " * count, end=" ")
-                print()
-        self.word = random.choice(WORDS)
-        return points
+            # Wyświetlanie podpowiedzi
+            print("✅ Litery na właściwych miejscach:", end=" ")
+            for i in range(length):
+                print(right_place.get(i, "_"), end=" ")
+            print()
+
+            print("🔸 Litery obecne w słowie:", end=" ")
+            for letter, count in right_letters.items():
+                print(f"{letter} " * count, end="")
+            print("\n")
 
 
 
 # Start the game and return result
 def wordle() -> int:
     session = Wordle()
-    result = 0
     print("""
     ===========================
     Witaj w grze Wordle!
@@ -132,19 +131,18 @@ def wordle() -> int:
         user_choice = check_menu_choice(user_choice, 2)
 
         if user_choice == 1:
-            result += session.start()
+            session.start()
+            print(f"🌟 Twoje punkty: {session.points}\n")
         elif user_choice == 2:
             # print(session.word)
             session.change_word()
             # print(session.word)
         elif user_choice == 0:
+            print("👋 Dzięki za grę! Do zobaczenia!")
             break
 
-
-    return result
-
+    return session.points
 
 
-
-if __name__ == "__main__":
-    print("Points:", wordle())
+# if __name__ == "__main__":
+#     print("Points:", wordle())
