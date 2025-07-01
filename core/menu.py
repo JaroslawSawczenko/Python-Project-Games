@@ -1,6 +1,7 @@
 import os
 from .user import User
-from ..games.logic_strategy import tic_tac_toe, game_2048
+# from ..games.logic_strategy import tic_tac_toe, game_2048
+from games import wordle
 
 def clear_screen():
     """Czyści ekran konsoli"""
@@ -34,7 +35,7 @@ def display_main_menu():
      Dostępne gry:
     1.  Tic-tac-toe (Kółko i krzyżyk)
     2.  2048 (Gra liczbowa)
-    3.  (Wkrótce)
+    3.  Wordle
     4.  (Wkrótce)
     5.  Więcej gier (Wkrótce)
     
@@ -113,13 +114,18 @@ def run():
         elif choice == 2:
             pass
         elif choice == 3:
-            print("  Wkrótce dostępne!")
+            # pass
+            game_name = "Wordle"
+            result = wordle.wordle()
+            user.add_results(game_name, result)
         elif choice == 4:
             print(" - Wkrótce dostępne!")
         elif choice == 5:
             print(" - Wkrótce dostępne!")
         elif choice == 9:
             display_help()
+        elif choice == 0:
+            break
         
         if choice != 0:
             input("\nNaciśnij Enter aby kontynuować...")
