@@ -45,12 +45,13 @@ def write_data_user_json(data):
 
 
 class User:
-    def __init__(self, name):
+    def __init__(self):
         self.user_info = {
             "id": None,
-            "name": name,
+            "name": None,
             "results": {},
         }
+
 
     def create_user(self):
         """
@@ -61,20 +62,23 @@ class User:
 
         # Sprawdź czy użytkownik już istnieje
         for user in data:
-            if user["name"] == self.user_info["name"]:
+            if user["name"] == name:
                 self.user_info = user
                 print(f"Witaj ponownie, {self.user_info['name']}!")
                 return
-
+        
         # Jeśli użytkownik nie istnieje, utwórz nowego
         self.user_info["id"] = len(data)
+        self.user_info["name"] = name
         data.append(self.user_info)
         write_data_user_json(data)
         print(f"Utworzono nowego użytkownika: {self.user_info['name']}")
 
-    def add_results(self, game_name, score):
-        """Dodaje wynik gry dla użytkownika, zapisuje tylko jeśli to nowy rekord"""
-        previous_score = self.user_info["results"].get(game_name)
+
+
+def add_results(self, game_name, score):
+    """Dodaje wynik gry dla użytkownika, zapisuje tylko jeśli to nowy rekord"""
+    previous_score = self.user_info["results"].get(game_name)
 
         # Sprawdzenie czy to pierwszy wynik lub lepszy niż dotychczasowy
         if previous_score is None or score > previous_score:
@@ -99,7 +103,7 @@ class User:
         user_info = f"Statystyka dla {self.user_info['name']}:\n"
         game_info = ""
         for game_name, result in self.user_info["results"].items():
-            game_info += f"- {game_name}: {result} pkt.\n"
+            game_info += f"-\t{game_name}:\t{result}p."
         return user_info + game_info
 
 
@@ -111,15 +115,31 @@ def create_or_load_user(name):
 
 
 if __name__ == "__main__":
-    # Test funkcji
-    user1 = User("Test")
-    user1.create_user()
 
-    user1.add_results("guess_number", 250)
+    user1 = User()
+    user1.create_user("Test")
+
+    user1.add_results("sudoku", 100)
     user1.add_results("2048", 512)
 
     print(user1)
-    print(f"ID użytkownika: {user1.user_info['id']}")
+    print(user1.user_info["id"])
 
-    data_read = read_data_user_json()
-    print("Dane z pliku:", data_read)
+    data_read = read_data_user_json() # czytamy plik
+    print(data_read)
+
+
+    data = {
+        "name": "Test",
+        "id": 0,
+    }
+    data1 = {
+        "name": "Tes1",
+        "id": 1,
+    }
+    data_read = []
+    data_read.append(data)
+    data_read.append(data1)
+    with open("user_data.json", "w") as json_file:
+        json.dump(data_read, json_file, indent=4)
+    

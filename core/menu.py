@@ -1,6 +1,7 @@
 import os
-#from .user import User, create_or_load_user
-#from ..games.logic_strategy import tic_tac_toe, game_2048
+from .user import User
+# from ..games.logic_strategy import tic_tac_toe, game_2048
+from games import wordle
 
 def clear_screen():
     """Czyści ekran konsoli"""
@@ -34,13 +35,13 @@ def display_main_menu():
      Dostępne gry:
     1.  Tic-tac-toe (Kółko i krzyżyk)
     2.  2048 (Gra liczbowa)
-    3.  (Wkrótce)
+    3.  Wordle
     4.  (Wkrótce)
     5.  Więcej gier (Wkrótce)
     
      Opcje dodatkowe:
     6.  Moje statystyki
-    7.  Ranking graczy       
+    7.  Ranking graczy
     8.  Lista użytkowników
     9.  Pomoc
     
@@ -92,7 +93,6 @@ def display_all_users():
             print("      Brak wyników")
         print()
 
-
 def display_help():
     """Wyświetla pomoc dla użytkownika"""
     print("""
@@ -136,7 +136,8 @@ def run():
         print(" Imię nie może być puste!")
     
     # Utwórz lub załaduj użytkownika
-    user = create_or_load_user(user_name)
+    user = User()
+    user = user.create_user(user_name)
     
     # Główna pętla menu
     while True:
@@ -173,7 +174,10 @@ def run():
                 print(f" Błąd podczas uruchamiania gry: {e}")
                 
         elif choice == 3:
-            print(" Wkrótce dostępne!")
+            # pass
+            game_name = "Wordle"
+            result = wordle.wordle()
+            user.add_results(game_name, result)
         elif choice == 4:
             print(" Wkrótce dostępne!")
         elif choice == 5:
@@ -187,11 +191,10 @@ def run():
         elif choice == 9:
             display_help()
         elif choice == 0:
-            print(" Dzięki za grę! Do zobaczenia!")
             break
         
         if choice != 0:
             input("\n Naciśnij Enter aby kontynuować...")
 
-if __name__ == "__main__":
-    run()
+# if __name__ == "__main__":
+#     run()
