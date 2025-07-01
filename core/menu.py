@@ -154,24 +154,24 @@ def run():
         
         if choice == 1:
             print(" Uruchamianie Tic-Tac-Toe...")
-            try:
-                # Uruchom grę i zapisz wynik jeśli został zwrócony
-                result = tic_tac_toe.tic_tac_toe()
-                if result:
-                    user.add_results("Tic-Tac-Toe", result)
-            except Exception as e:
-                print(f" Błąd podczas uruchamiania gry: {e}")
+            # try:
+            #     # Uruchom grę i zapisz wynik jeśli został zwrócony
+            #     result = tic_tac_toe.tic_tac_toe()
+            #     if result:
+            #         user.add_results("Tic-Tac-Toe", result)
+            # except Exception as e:
+            #     print(f" Błąd podczas uruchamiania gry: {e}")
                 
         elif choice == 2:
             print(" Uruchamianie 2048...")
-            try:
-                game = game_2048.Game2048()
-                game.play()
-                # Zapisz wynik po zakończeniu gry
-                if game.score > 0:
-                    user.add_results("2048", game.score)
-            except Exception as e:
-                print(f" Błąd podczas uruchamiania gry: {e}")
+            # try:
+            #     game = game_2048.Game2048()
+            #     game.play()
+            #     # Zapisz wynik po zakończeniu gry
+            #     if game.score > 0:
+            #         user.add_results("2048", game.score)
+            # except Exception as e:
+            #     print(f" Błąd podczas uruchamiania gry: {e}")
                 
         elif choice == 3:
             # pass
