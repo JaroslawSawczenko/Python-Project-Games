@@ -15,5 +15,12 @@
             "2048": 512,
             "Wordle": 10
         }
+    },
+    {
+        "id": 2,
+        "name": "Jareylo",
+        "results": {
+            "Wordle": 0
+        }
     }
 ]

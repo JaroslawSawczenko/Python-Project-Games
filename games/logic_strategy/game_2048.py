@@ -11,7 +11,7 @@ class Game2048:
         
         # Dodaj dwa losowe kafelki na start
         self.add_random_tile()
-        if not self.add_random_tile():
+        if not self.add_random_tile(): 
             # Bardzo nieprawdopodobne, ale zabezpieczenie
             pass
     

@@ -23,7 +23,6 @@ def check_menu_choice(user_input, max_option):
         print(f"Wystąpił nieoczekiwany błąd: {e}")
         return None
 
-
 def display_main_menu():  
     """Wyświetla główne menu gry"""
     print("""
