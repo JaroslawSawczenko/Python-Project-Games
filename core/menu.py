@@ -1,7 +1,18 @@
 import os
 from .user import User
-# from ..games.logic_strategy import tic_tac_toe, game_2048
-from games import wordle
+try:
+    from games.logic_strategy import tic_tac_toe, game_2048
+    TIC_TAC_TOE_AVAILABLE = True
+    GAME_2048_AVAILABLE = True
+except ImportError:
+    TIC_TAC_TOE_AVAILABLE = False
+    GAME_2048_AVAILABLE = False
+
+try:
+    from games import wordle
+    WORDLE_AVAILABLE = True
+except ImportError:
+    WORDLE_AVAILABLE = False
 
 def clear_screen():
     """Czyści ekran konsoli"""
@@ -31,11 +42,24 @@ def display_main_menu():
     ║              GŁÓWNE MENU             ║
     ╚══════════════════════════════════════╝
     
-     Dostępne gry:
-    1.  Tic-tac-toe (Kółko i krzyżyk)
-    2.  2048 (Gra liczbowa)
-    3.  Wordle
-    4.  (Wkrótce)
+     Dostępne gry:""")
+    
+    if TIC_TAC_TOE_AVAILABLE:
+        print("    1.  Tic-tac-toe (Kółko i krzyżyk)")
+    else:
+        print("    1.  Tic-tac-toe (Niedostępne)")
+        
+    if GAME_2048_AVAILABLE:
+        print("    2.  2048 (Gra liczbowa)")
+    else:
+        print("    2.  2048 (Niedostępne)")
+        
+    if WORDLE_AVAILABLE:
+        print("    3.  Wordle")
+    else:
+        print("    3.  Wordle (Niedostępne)")
+    
+    print("""    4.  (Wkrótce)
     5.  Więcej gier (Wkrótce)
     
      Opcje dodatkowe:
@@ -46,7 +70,6 @@ def display_main_menu():
     
     0.  Wyjście
     """)
-
 
 def display_user_stats(user):
     """Wyświetla statystyki użytkownika"""
@@ -152,31 +175,41 @@ def run():
             continue
         
         if choice == 1:
-            print(" Uruchamianie Tic-Tac-Toe...")
-            # try:
-            #     # Uruchom grę i zapisz wynik jeśli został zwrócony
-            #     result = tic_tac_toe.tic_tac_toe()
-            #     if result:
-            #         user.add_results("Tic-Tac-Toe", result)
-            # except Exception as e:
-            #     print(f" Błąd podczas uruchamiania gry: {e}")
+            if TIC_TAC_TOE_AVAILABLE:
+                print(" Uruchamianie Tic-Tac-Toe...")
+                try:
+                    result = tic_tac_toe.tic_tac_toe()
+                    if result:
+                        user.add_results("Tic-Tac-Toe", result)
+                except Exception as e:
+                    print(f" Błąd podczas uruchamiania gry: {e}")
+            else:
+                print(" Tic-Tac-Toe nie jest dostępne!")
                 
         elif choice == 2:
-            print(" Uruchamianie 2048...")
-            # try:
-            #     game = game_2048.Game2048()
-            #     game.play()
-            #     # Zapisz wynik po zakończeniu gry
-            #     if game.score > 0:
-            #         user.add_results("2048", game.score)
-            # except Exception as e:
-            #     print(f" Błąd podczas uruchamiania gry: {e}")
+            if GAME_2048_AVAILABLE:
+                print(" Uruchamianie 2048...")
+                try:
+                    game = game_2048.Game2048()
+                    game.play()
+                    if game.score > 0:
+                        user.add_results("2048", game.score)
+                except Exception as e:
+                    print(f" Błąd podczas uruchamiania gry: {e}")
+            else:
+                print(" Gra 2048 nie jest dostępna!")
                 
         elif choice == 3:
-            # pass
-            game_name = "Wordle"
-            result = wordle.wordle()
-            user.add_results(game_name, result)
+            if WORDLE_AVAILABLE:
+                game_name = "Wordle"
+                try:
+                    result = wordle.wordle()
+                    user.add_results(game_name, result)
+                except Exception as e:
+                    print(f" Błąd podczas uruchamiania gry: {e}")
+            else:
+                print(" Wordle nie jest dostępne!")
+                
         elif choice == 4:
             print(" Wkrótce dostępne!")
         elif choice == 5:

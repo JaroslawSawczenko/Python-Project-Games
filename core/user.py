@@ -99,13 +99,13 @@ class User:
         else:
             print(f"Nie pobiłeś rekordu. Twój najlepszy wynik w '{game_name}' to {previous_score}.")
 
-        def __str__(self):
-            """Wywiad wyników dla użytkownika."""
-            user_info = f"Statystyka dla {self.user_info['name']}:\n"
-            game_info = ""
-            for game_name, result in self.user_info["results"].items():
-                game_info += f"-\t{game_name}:\t{result}p."
-            return user_info + game_info
+    def __str__(self):
+        """Wywiad wyników dla użytkownika."""
+        user_info = f"Statystyka dla {self.user_info['name']}:\n"
+        game_info = ""
+        for game_name, result in self.user_info["results"].items():
+            game_info += f"-\t{game_name}:\t{result}p."
+        return user_info + game_info
 
 
     def create_or_load_user(name):
