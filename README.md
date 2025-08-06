@@ -273,6 +273,34 @@ Ten projekt jest licencjonowany na licencji MIT - zobacz plik [LICENSE](LICENSE)
 ```
 MIT License - możesz swobodnie używać, modyfikować i dystrybuować
 ```
+<<<<<<< HEAD
+=======
+
+
+**Miłej zabawy z Terminal Games! 🎮**
+
+---
+
+*Ostatnia aktualizacja: Sierpień 2025*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 0d29c413fad59a3e09939c3d74dc3ec9bf0bd8a5
 
 
 **Miłej zabawy z Terminal Games! 🎮**
