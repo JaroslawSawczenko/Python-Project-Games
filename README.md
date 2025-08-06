@@ -1,3 +1,27 @@
+ARCHITEKTONICZNE pomysly
+
+1. Utworzenie klasy GameManager
+# core/game_manager.py
+class GameManager:
+    def __init__(self):
+        self.available_games = {}
+        self.load_games()
+    
+    def register_game(self, name, game_class, available=True):
+        self.available_games[name] = {
+            'class': game_class,
+            'available': available
+        }
+    
+    def play_game(self, game_name):
+        # Unified game handling
+        pass
+
+2. Logging system
+
+
+
+
 # 🎮 Terminal Games
 
 Kolekcja gier konsolowych napisanych w Pythonie z systemem użytkowników i rankingiem.

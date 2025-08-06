@@ -6,5 +6,10 @@
             "guess_number": 250,
             "2048": 512
         }
+    },
+    {
+        "id": 1,
+        "name": "Jarek",
+        "results": {}
     }
 ]

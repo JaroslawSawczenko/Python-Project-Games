@@ -5,20 +5,23 @@ try:
     from games import tic_tac_toe, game_2048
     TIC_TAC_TOE_AVAILABLE = True
     GAME_2048_AVAILABLE = True
-except ImportError:
+except ImportError as e:
+    print(f"Błąd importu gier strategicznych: {e}")
     TIC_TAC_TOE_AVAILABLE = False
     GAME_2048_AVAILABLE = False
 
 try:
     from games import wordle
     WORDLE_AVAILABLE = True
-except ImportError:
+except ImportError as e:
+    print(f"Błąd importu Wordle: {e}")
     WORDLE_AVAILABLE = False
 
 try:
-    from games import Guess_the_Number
+    from games.Guess_the_Number import GuessNumber
     GUESS_NUMBER_AVAILABLE = True
-except ImportError:
+except ImportError as e:
+    print(f"Błąd importu Guess the Number: {e}")
     GUESS_NUMBER_AVAILABLE = False
 
 def clear_screen():
@@ -51,26 +54,20 @@ def display_main_menu():
     
      Dostępne gry:""")
     
-    if TIC_TAC_TOE_AVAILABLE:
-        print("    1.  Tic-tac-toe (Kółko i krzyżyk)")
-    else:
-        print("    1.  Tic-tac-toe (Niedostępne)")
-        
-    if GAME_2048_AVAILABLE:
-        print("    2.  2048 (Gra liczbowa)")
-    else:
-        print("    2.  2048 (Niedostępne)")
-        
-    if WORDLE_AVAILABLE:
-        print("    3.  Wordle")
-    else:
-        print("    3.  Wordle (Niedostępne)")
+    # Konsystentne nazewnictwo i obsługa wszystkich gier
+    games_menu = [
+        (TIC_TAC_TOE_AVAILABLE, "1.  Tic-Tac-Toe (Kółko i krzyżyk)"),
+        (GAME_2048_AVAILABLE, "2.  2048 (Gra liczbowa)"),
+        (WORDLE_AVAILABLE, "3.  Wordle (Zgadywanie słów)"),
+        (GUESS_NUMBER_AVAILABLE, "4.  Zgadnij liczbę")
+    ]
     
-    if GUESS_NUMBER_AVAILABLE:
-        print("    4.  Zgadnij liczbę")
-    else:
-        print("    4.  Zgadnij liczbę (Niedostępne)")
-        
+    for available, text in games_menu:
+        if available:
+            print(f"    {text}")
+        else:
+            print(f"    {text} (Niedostępne)")
+    
     print("""    5.  Więcej gier (Wkrótce)
     
      Opcje dodatkowe:
@@ -79,8 +76,7 @@ def display_main_menu():
     8.  Lista użytkowników
     9.  Pomoc
     
-    0.  Wyjście
-    """)
+    0.  Wyjście""")
 
 def display_user_stats(user):
     """Wyświetla statystyki użytkownika"""
@@ -167,11 +163,9 @@ def run():
             break
         print(" Imię nie może być puste!")
     
-    # Utwórz lub załaduj użytkownika
     user = User()
     user = user.create_user(user_name)
     
-    # Główna pętla menu
     while True:
         clear_screen()
         print(f" Cześć, {user.user_info['name']}!")
@@ -184,71 +178,51 @@ def run():
             input("⏎ Naciśnij Enter aby kontynuować...")
             continue
         
-        if choice == 1:
-            if TIC_TAC_TOE_AVAILABLE:
-                print(" Uruchamianie Tic-Tac-Toe...")
+        game_handlers = {
+            1: ("Tic-Tac-Toe", TIC_TAC_TOE_AVAILABLE, lambda: tic_tac_toe.tic_tac_toe()),
+            2: ("2048", GAME_2048_AVAILABLE, lambda: handle_2048_game()),
+            3: ("Wordle", WORDLE_AVAILABLE, lambda: wordle.wordle()),
+            4: ("Zgadnij liczbę", GUESS_NUMBER_AVAILABLE, lambda: GuessNumber().play())
+        }
+        
+        if choice in game_handlers:
+            game_name, available, game_func = game_handlers[choice]
+            
+            if available:
+                print(f" Uruchamianie {game_name}...")
                 try:
-                    result = tic_tac_toe.tic_tac_toe()
+                    result = game_func()
                     if result and result > 0:
-                        user.add_results("Tic-Tac-Toe", result)
+                        user.add_results(game_name, result)
+                    else:
+                        print(f" Nie zapisano wyniku dla gry {game_name}")
                 except Exception as e:
-                    print(f" Błąd podczas uruchamiania gry: {e}")
+                    print(f" Błąd podczas uruchamiania gry {game_name}: {e}")
             else:
-                print(" Tic-Tac-Toe nie jest dostępne!")
-                
-        elif choice == 2:
-            if GAME_2048_AVAILABLE:
-                print(" Uruchamianie 2048...")
-                try:
-                    game = game_2048.Game2048()
-                    game.play()
-                    if game.score > 0:
-                        user.add_results("2048", game.score)
-                except Exception as e:
-                    print(f" Błąd podczas uruchamiania gry: {e}")
-            else:
-                print(" Gra 2048 nie jest dostępna!")
-                
-        elif choice == 3:
-            if WORDLE_AVAILABLE:
-                print(" Uruchamianie Wordle...")
-                try:
-                    result = wordle.wordle()
-                    if result and result > 0:
-                        user.add_results("Wordle", result)
-                except Exception as e:
-                    print(f" Błąd podczas uruchamiania gry: {e}")
-            else:
-                print(" Wordle nie jest dostępne!")
-                
-        elif choice == 4:
-            if GUESS_NUMBER_AVAILABLE:
-                print(" Uruchamianie Zgadnij liczbę...")
-                try:
-                    game = Guess_the_Number.GuessNumber()
-                    result = game.play()
-                    if result and result > 0:
-                        user.add_results("Zgadnij liczbę", result)
-                except Exception as e:
-                    print(f" Błąd podczas uruchamiania gry: {e}")
-            else:
-                print(" Zgadnij liczbę nie jest dostępne!")
+                print(f" {game_name} nie jest dostępne!")
                 
         elif choice == 5:
             print(" Wkrótce dostępne!")
         elif choice == 6:
             display_user_stats(user)
         elif choice == 7:
-           print(" Ranking graczy w budowie!")
+            print(" Ranking graczy w budowie!")
         elif choice == 8:
             display_all_users()
         elif choice == 9:
             display_help()
         elif choice == 0:
+            print(" Dziękujemy za grę! Do zobaczenia!")
             break
         
         if choice != 0:
             input("\n Naciśnij Enter aby kontynuować...")
+
+def handle_2048_game():
+    """Specjalna obsługa gry 2048"""
+    game = game_2048.Game2048()
+    game.play()
+    return game.score
 
 # if __name__ == "__main__":
 #     run()
