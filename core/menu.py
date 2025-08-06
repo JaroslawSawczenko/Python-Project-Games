@@ -1,7 +1,8 @@
 import os
 from .user import User
+
 try:
-    from games.logic_strategy import tic_tac_toe, game_2048
+    from games import tic_tac_toe, game_2048
     TIC_TAC_TOE_AVAILABLE = True
     GAME_2048_AVAILABLE = True
 except ImportError:
@@ -13,6 +14,12 @@ try:
     WORDLE_AVAILABLE = True
 except ImportError:
     WORDLE_AVAILABLE = False
+
+try:
+    from games import Guess_the_Number
+    GUESS_NUMBER_AVAILABLE = True
+except ImportError:
+    GUESS_NUMBER_AVAILABLE = False
 
 def clear_screen():
     """Czyści ekran konsoli"""
@@ -59,8 +66,12 @@ def display_main_menu():
     else:
         print("    3.  Wordle (Niedostępne)")
     
-    print("""    4.  (Wkrótce)
-    5.  Więcej gier (Wkrótce)
+    if GUESS_NUMBER_AVAILABLE:
+        print("    4.  Zgadnij liczbę")
+    else:
+        print("    4.  Zgadnij liczbę (Niedostępne)")
+        
+    print("""    5.  Więcej gier (Wkrótce)
     
      Opcje dodatkowe:
     6.  Moje statystyki
@@ -89,7 +100,6 @@ def display_user_stats(user):
     else:
         print("    Nie masz jeszcze żadnych wyników.")
         print("    Zagraj w jakąś grę, aby zapisać swoje wyniki!")
-
 
 def display_all_users():
     """Wyświetla listę wszystkich użytkowników"""
@@ -179,7 +189,7 @@ def run():
                 print(" Uruchamianie Tic-Tac-Toe...")
                 try:
                     result = tic_tac_toe.tic_tac_toe()
-                    if result:
+                    if result and result > 0:
                         user.add_results("Tic-Tac-Toe", result)
                 except Exception as e:
                     print(f" Błąd podczas uruchamiania gry: {e}")
@@ -201,17 +211,29 @@ def run():
                 
         elif choice == 3:
             if WORDLE_AVAILABLE:
-                game_name = "Wordle"
+                print(" Uruchamianie Wordle...")
                 try:
                     result = wordle.wordle()
-                    user.add_results(game_name, result)
+                    if result and result > 0:
+                        user.add_results("Wordle", result)
                 except Exception as e:
                     print(f" Błąd podczas uruchamiania gry: {e}")
             else:
                 print(" Wordle nie jest dostępne!")
                 
         elif choice == 4:
-            print(" Wkrótce dostępne!")
+            if GUESS_NUMBER_AVAILABLE:
+                print(" Uruchamianie Zgadnij liczbę...")
+                try:
+                    game = Guess_the_Number.GuessNumber()
+                    result = game.play()
+                    if result and result > 0:
+                        user.add_results("Zgadnij liczbę", result)
+                except Exception as e:
+                    print(f" Błąd podczas uruchamiania gry: {e}")
+            else:
+                print(" Zgadnij liczbę nie jest dostępne!")
+                
         elif choice == 5:
             print(" Wkrótce dostępne!")
         elif choice == 6:

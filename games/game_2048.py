@@ -38,7 +38,7 @@ class Game2048:
             print('\n' * 50)
         
         print("=" * 25)
-        print(f"    GEJA 2048    ")
+        print(f"    GIRA  2048    ")
         print(f"   WYNIK: {self.score}")
         print("=" * 25)
         print()
