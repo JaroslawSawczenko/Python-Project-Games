@@ -1,10 +1,13 @@
 import random
 import os
+from typing import List, Tuple, Optional
 
 class Game2048:
-    def __init__(self):
-        self.size = 4
-        self.board = [[0] * self.size for _ in range(self.size)]
+    """Klasa implementująca grę 2048 z poprawkami i ulepszenami"""
+    
+    def __init__(self, size: int = 4):
+        self.size = size
+        self.board: List[List[int]] = [[0] * self.size for _ in range(self.size)]
         self.score = 0
         self.game_over = False
         self.won = False
@@ -15,7 +18,7 @@ class Game2048:
             # Bardzo nieprawdopodobne, ale zabezpieczenie
             pass
     
-    def add_random_tile(self):
+    def add_random_tile(self) -> bool:
         """Dodaje losowy kafelek (2 lub 4) na pustym miejscu"""
         empty_cells = [(i, j) for i in range(self.size) 
                        for j in range(self.size) if self.board[i][j] == 0]
@@ -28,17 +31,20 @@ class Game2048:
         self.board[i][j] = 2 if random.random() < 0.9 else 4
         return True
     
-    def display_board(self):
-        """Wyświetla plansze gry"""
-        # Bezpieczne czyszczenie ekranu - działa w większości środowisk
+    def clear_screen(self) -> None:
+        """Bezpieczne czyszczenie ekranu"""
         try:
             os.system('cls' if os.name == 'nt' else 'clear')
-        except:
-            # Jeśli nie można wyczyścić, po prostu dodaj odstęp
+        except OSError as e:
+            # Fallback jeśli nie można wyczyścić ekranu
             print('\n' * 50)
+    
+    def display_board(self) -> None:
+        """Wyświetla plansze gry z poprawkami"""
+        self.clear_screen()
         
         print("=" * 25)
-        print(f"    GIRA  2048    ")
+        print(f"     GRA  2048     ")  # POPRAWKA: było "GIRA"
         print(f"   WYNIK: {self.score}")
         print("=" * 25)
         print()
@@ -65,14 +71,15 @@ class Game2048:
         print("└" + "─" * 6 + "┴" + "─" * 6 + "┴" + "─" * 6 + "┴" + "─" * 6 + "┘")
         print()
         
+        # Status messages
         if self.won and not self.game_over:
-            print(" GRATULACJE! Osiągnąłeś 2048! Możesz grać dalej lub wcisnąć 'q' aby zakończyć.")
+            print(" 🎉 GRATULACJE! Osiągnąłeś 2048! Możesz grać dalej lub wcisnąć 'q' aby zakończyć.")
         elif self.game_over:
-            print(" KONIEC GRY! Brak możliwych ruchów.")
+            print(" 💀 KONIEC GRY! Brak możliwych ruchów.")
         
-        print("Sterowanie: W/A/S/D (góra/lewo/dół/prawo), Q - wyjście, R - restart")
+        print("⌨️  Sterowanie: W/A/S/D (góra/lewo/dół/prawo), Q - wyjście, R - restart")
     
-    def move_left(self):
+    def move_left(self) -> bool:
         """Przesuwa kafelki w lewo i łączy je"""
         moved = False
         new_board = [row[:] for row in self.board]
